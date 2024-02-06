@@ -14,9 +14,9 @@ NdtLocalizer::NdtLocalizer(ros::NodeHandle &nh, ros::NodeHandle &private_nh):nh_
   diagnostics_pub_ = nh_.advertise<diagnostic_msgs::DiagnosticArray>("diagnostics", 10);
 
   // Subscribers
-  initial_pose_sub_ = nh_.subscribe("initialpose", 100, &NdtLocalizer::callback_init_pose, this);
+  initial_pose_sub_ = nh_.subscribe("/initialpose", 100, &NdtLocalizer::callback_init_pose, this);
   map_points_sub_ = nh_.subscribe("points_map", 1, &NdtLocalizer::callback_pointsmap, this);
-  sensor_points_sub_ = nh_.subscribe("filtered_points", 1, &NdtLocalizer::callback_pointcloud, this);
+  sensor_points_sub_ = nh_.subscribe("/rslidar_points", 1, &NdtLocalizer::callback_pointcloud, this);
 
   diagnostic_thread_ = std::thread(&NdtLocalizer::timer_diagnostic, this);
   diagnostic_thread_.detach();
